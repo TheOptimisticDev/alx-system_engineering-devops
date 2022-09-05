@@ -1,1 +1,2 @@
 #!/bin/bash
+grep -l "A[a-z]" /etc/sshd_config
