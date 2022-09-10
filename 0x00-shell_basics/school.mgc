@@ -1,2 +1,2 @@
-file -c -m school
-!:mime school
+0 script SCHOOL School data
+!:mime School
