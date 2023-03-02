@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# a comment explaining what is the script doing
+ifconfig -a | grep "inet addr:" | cut -d : -f2 | awk '{print $1}'
+
