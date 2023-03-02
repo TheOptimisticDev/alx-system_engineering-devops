@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# a comment explaining what is the script doing
-ifconfig -a | grep "inet addr:" | cut -d : -f2 | awk '{print $1}'
+# Dsiplay all active IPV4 addresses
 
+ifconfig | grep -Eo "inet (addr:)?([0-9]*\.){3}[0-9]*" | cut -b 11-
