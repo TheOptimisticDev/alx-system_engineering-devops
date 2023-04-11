@@ -1,6 +1,6 @@
 # SSH Config File
 Host 106237-web-01
-	Hostname 34.239.253.167
+	Hostname d4fb1e8d4f54.3492f959.alx-cod.online
 	User ubuntu
-	PasswordAuthentication yes
+	PasswordAuthentication no
 	IdentityFile ~/.ssh/school
