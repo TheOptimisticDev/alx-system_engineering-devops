@@ -23,7 +23,7 @@ new_config=\
         }
         
         if (\$request_filename ~ redirect_me){
-            rewrite ^ https://github.com/OptimisticUnderdog permanent;
+            rewrite  https://github.com/OptimisticUnderdog permanent;
         }
 }
 "

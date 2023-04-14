@@ -3,8 +3,8 @@
 package { 'nginx':
 provider => 'apt',
 }
-exec {'hlbtn_page':
-command => '/usr/bin/sudo /bin/echo Holberton School > /var/www/html/index.nginx-debian.html',
+exec {'curl':
+command => '/usr/bin/sudo /bin/echo Hello World! > /var/www/html/index.nginx-debian.html',
 }
 exec {'redirect_page':
 
