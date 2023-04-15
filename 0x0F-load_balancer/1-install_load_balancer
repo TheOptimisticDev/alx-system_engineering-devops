@@ -11,15 +11,15 @@ INIT_FILE='/etc/default/haproxy'
 CONFIG_FILE='/etc/haproxy/haproxy.cfg'
 HAPROXY_LB_CONFIG=\
 "
-#--$DOMAIN_NAME-params-begin--
-backend $DOMAIN_NAME-backend
+#--optimisticunderdog-params-begin--
+backend optimisticunderdog-backend
         balance roundrobin
         server web-01 54.146.75.232:80 check
         server web-02 34.207.227.49:80 check
-frontend $DOMAIN_NAME-frontend
+frontend optimisticunderdog-frontend
         bind *:80
         option forwardfor
-        default_backend $DOMAIN_NAME-backend
-#--$DOMAIN_NAME-params-end--
+        default_backend optimisticunderdog-backend
+#--optimisticunderdog-params-end--
 sed -i "20i \\\n$frontend_configuration\n$backend_configuration" /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
