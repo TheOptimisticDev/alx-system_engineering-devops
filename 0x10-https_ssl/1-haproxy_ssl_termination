@@ -43,6 +43,6 @@ frontend airbnbclone-front2
 
 backend airbnbclonei-back
         balance roundrobin
-        server 106237-web-01 54.146.75.232:80 check
-        server 106237-web-02 34.207.227.49:80 check
+        server 106237-web-01 54.157.132.104:80 check
+        server 106237-web-02 54.157.133.135:80 check
 # end of parameters
