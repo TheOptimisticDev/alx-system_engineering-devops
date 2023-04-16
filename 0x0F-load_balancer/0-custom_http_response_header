@@ -6,8 +6,8 @@ apt-get -y install nginx
 
 service nginx start
 
-ufw allow  'Nginx HTTP' #nginx should be listed on port 80
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+ufw allow  "Nginx HTTP" #nginx should be listed on port 80
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 sed -i "46i rewrite ^/redirect_me https://www.youtube.com permanent;" /etc/nginx/sites-available/default
 echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
 sed -i "46i error_page 404 /custom_404.html;" /etc/nginx/sites-available/default
