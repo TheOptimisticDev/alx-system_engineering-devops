@@ -1,25 +1,53 @@
 #!/usr/bin/env bash
-# Installs, configures, and starts the load balancer
-sudo apt-get update
-sudo apt-get -y install --no-install-recommends software-properties-common
-sudo add-apt-repository -y ppa:vbernat/haproxy-2.4
-sudo apt-get -y install haproxy
+# Installs, configures load balancer
 
-# the load balancer's configuration
-DOMAIN_NAME='optimisticunderdog.tech'
-INIT_FILE='/etc/default/haproxy'
-CONFIG_FILE='/etc/haproxy/haproxy.cfg'
-HAPROXY_LB_CONFIG=\
+echo -e "Updating and doing some minor checks...\n"
+
+function install() {
+	command -v "$1" &> /dev/null
+
+	#shellcheck disable=SC2181
+	if [ $? -ne 0 ]; then
+		echo -e "	Installing: $1\n"
+		sudo apt-get update -y -qq && \
+			sudo apt-get install -y "$1" -qq
+		echo -e "\n"
+	else
+		echo -e "	${1} is already installed.\n"
+	fi
+}
+
+install haproxy #install haproxy
+
+echo -e "\nSetting up some minor stuff.\n"
+# backup default server config file
+sudo cp /etc/haproxy/haproxy.cfg haproxy_default.backup
+
+server_config=\
 "
-#--optimisticunderdog-params-begin--
-backend optimisticunderdog-backend
-        balance roundrobin
-        server web-01 54.237.68.153:80 check
-        server web-02 54.157.133.135:80 check
-frontend optimisticunderdog-frontend
-        bind *:80
-        option forwardfor
-        default_backend optimisticunderdog-backend
-#--optimisticunderdog-params-end--
-sed -i "20i \\\n$frontend_configuration\n$backend_configuration" /etc/haproxy/haproxy.cfg
-sudo service haproxy restart
+defaults
+  mode http
+  timeout client 15s
+  timeout connect 10s
+  timeout server 15s
+  timeout http-request 10s
+frontend optimisticunderdog-tech-frontend
+    bind *:80
+    default_backend optimistcunderdog-tech-backend
+backend optimisticunderdog-tech-backend
+    balance roundrobin
+    server 106237-web-01 54.237.68.153:80 check
+    server 106237-web-02 54.157.133.135:80 check
+"
+
+# shellcheck disable=SC2154
+echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
+
+# enable haproxy to be started by init script
+echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
+
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	sudo service haproxy start
+else
+	sudo service haproxy restart
+fi
