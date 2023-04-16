@@ -36,12 +36,12 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-listen 19018-lb-01
+listen 106237-lb-01
         bind *:80
-        bind *:443 ssl crt /etc/letsencrypt/live/www.aysuarex.tech/aysuarex.pem
+        bind *:443 ssl crt /etc/letsencrypt/live/www.optimisticunderdog.tech/optimisticunderdog.pem
         mode http
         redirect scheme https code 301 if !{ ssl_fc }
         balance roundrobin
         option forwardfor
-        server 106237-web-01 54.157.132.104:80 check
+        server 106237-web-01 54.237.68.153:80 check
         server 106237-web-02 54.157.133.135:80 check

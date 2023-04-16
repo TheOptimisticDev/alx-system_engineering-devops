@@ -32,17 +32,17 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-# config for www.airbnbclone.tech fronted and backend load balancing
-frontend airbnbclone-front1
+# config for www.optimisticunderdog.tech fronted and backend load balancing
+frontend optimisticunderdog-front1
         bind    *:80
-        default_backend airbnbclone-back
+        default_backend optimisticunderdog-back
 
-frontend airbnbclone-front2
-        bind *:443 ssl crt /etc/letsencrypt/live/www.airbnbclone.tech/all.pem
-        default_backend airbnbclone-back
+frontend optimisticunderdog-front2
+        bind *:443 ssl crt /etc/letsencrypt/live/www.optimisticunderdog.tech/all.pem
+        default_backend optimisticunderdog-back
 
-backend airbnbclonei-back
+backend optimisticunderdog-back
         balance roundrobin
-        server 106237-web-01 54.157.132.104:80 check
+        server 106237-web-01 54.237.68.153:80 check
         server 106237-web-02 54.157.133.135:80 check
 # end of parameters
