@@ -1,0 +1,15 @@
+
+defaults
+  mode http
+  timeout client 15s
+  timeout connect 10s
+  timeout server 15s
+  timeout http-request 10s
+frontend optimisticunderdog-tech-frontend
+    bind *:80
+    default_backend optimistcunderdog-tech-backend
+backend optimisticunderdog-tech-backend
+    balance roundrobin
+    server 106237-web-01 54.237.68.153:80 check
+    server 106237-web-02 54.157.133.135:80 check
+
