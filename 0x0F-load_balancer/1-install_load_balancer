@@ -33,6 +33,7 @@ defaults
   timeout http-request 10s
 frontend optimisticunderdog-tech-frontend
     bind *:80
+    mode http
     default_backend optimistcunderdog-tech-backend
 backend optimisticunderdog-tech-backend
     balance roundrobin
