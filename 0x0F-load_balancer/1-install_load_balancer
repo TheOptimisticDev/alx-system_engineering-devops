@@ -36,8 +36,8 @@ frontend optimisticunderdog-tech-frontend
     default_backend optimistcunderdog-tech-backend
 backend optimisticunderdog-tech-backend
     balance roundrobin
-    server 106237-web-01 54.237.68.153:80 check
-    server 106237-web-02 54.157.133.135:80 check
+    server 106237-web-01 54.174.86.115:80 check
+    server 106237-web-02 54.237.115.58:80 check
 "
 
 # shellcheck disable=SC2154
