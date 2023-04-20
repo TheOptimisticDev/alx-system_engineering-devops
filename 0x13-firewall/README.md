@@ -3,7 +3,7 @@
 Tasks
 0. Block all incoming traffic but
 mandatory
-Score: 0.0% (Checks completed: 0.0%)
+
 Let’s install the ufw firewall and setup a few rules on web-01.
 
 Requirements:
@@ -18,5 +18,3 @@ Repo:
 
 GitHub repository: alx-system_engineering-devops
 Directory: 0x13-firewall
-File: 0-block_all_incoming_traffic_but
-   
