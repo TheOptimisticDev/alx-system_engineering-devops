@@ -1,27 +1,27 @@
+#!/usr/bin/env bash
+# serves page from the route /airbnb-onepage/
+
 server {
     listen 80;
-    listen [::]:80 default_server;
-    add_header X-Served-By $hostname;
-    root   /etc/nginx/html;
-    index  index.html index.htm;
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    server_name localhost;  # Serve locally
+    root /path/to/your/flask/app;  # Replace with the path to your Flask app
+
+    location /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/;  # Proxy requests to the Flask app
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
     }
-    root /var/www/html;
-
-    server_name _;
-
-    location /airbnb-onepage {
-        proxy_pass http://0.0.0.0:5000/airbnb-onepage;
-    }
-
-    location /hbnb_static {
-        alias /data/web_static/current/;
-    }
-
-    location /{
-        # First attempt to serve request as file, then
-        # as directory, then fall back to displaying a 404.
-        try_files $uri $uri/ =404;
-     }
 }
+
+server {
+    listen 80;
+    server_name your_public_ip;  # Serve on public IP
+    root /path/to/your/flask/app;  # Replace with the path to your Flask app
+
+    location /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/;  # Proxy requests to the Flask app
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
