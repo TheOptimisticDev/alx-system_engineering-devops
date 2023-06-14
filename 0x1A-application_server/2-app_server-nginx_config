@@ -4,7 +4,7 @@
 server {
     listen 80;
     server_name localhost;  # Serve locally
-    root /path/to/your/flask/app;  # Replace with the path to your Flask app
+    root /etc/nginx/html; 
 
     location /airbnb-onepage/ {
         proxy_pass http://127.0.0.1:5000/;  # Proxy requests to the Flask app
@@ -15,8 +15,8 @@ server {
 
 server {
     listen 80;
-    server_name your_public_ip;  # Serve on public IP
-    root /path/to/your/flask/app;  # Replace with the path to your Flask app
+    server_name 54.174.86.115;  # Serve on public IP
+    root /etc/nginx/html; 
 
     location /airbnb-onepage/ {
         proxy_pass http://127.0.0.1:5000/;  # Proxy requests to the Flask app
