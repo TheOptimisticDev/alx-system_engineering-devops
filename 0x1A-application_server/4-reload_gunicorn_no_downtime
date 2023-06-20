@@ -1,3 +1,15 @@
-#!/usr/bin/env bash
-# Kill gunicorn worker processe gracefully, with no downtime
-pkill -HUP gunicorn
+#!/bin/bash
+
+# Find the Gunicorn process ID
+PID=$(pgrep gunicorn)
+
+if [ -z "$PID" ]; then
+  echo "Gunicorn process not found"
+  exit 1
+fi
+
+# Send a graceful reload signal to Gunicorn
+kill -HUP "$PID"
+
+echo "Gunicorn reloaded gracefully"
+
