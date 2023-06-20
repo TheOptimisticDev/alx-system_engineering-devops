@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 server {
                 listen 80 default_server;
 location /hbnb_static { alias /data/web_static/current/;}
@@ -11,6 +13,15 @@ location /hbnb_static { alias /data/web_static/current/;}
                         alias /home/ubuntu/AirBnB_clone_v4/web_dynamic/static/;
                         try_files $uri $uri/ =404;
                 }
+
+		location / {
+		    proxy_pass http://127.0.0.1:5003;
+		    proxy_set_header Host $host;
+		    proxy_set_header X-Real-IP $remote_addr;
+		    alias /path/to/AirBnB_clone_v4/web_dynamic/static/;
+		}
+
+
                 location / {
                         try_files $uri $uri/ =404;
                 }
