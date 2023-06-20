@@ -1,18 +1,3 @@
-#!/bin/bash
-
-# Get the process ID (PID) of the Gunicorn master process
-PID=$(cat /path/to/gunicorn.pid)
-
-# Reload Gunicorn gracefully
-kill -HUP $PID
-
-# Wait for the new workers to start
-sleep 2
-
-# Check if the new workers are running
-if ps -p $PID > /dev/null; then
-    echo "Gunicorn reloaded successfully."
-else
-    echo "Failed to reload Gunicorn."
-fi
-
+#!/usr/bin/env bash
+# gracefully restart gunicorn workers
+kill -SIGHUP "$(pgrep gunicorn | head -n 1)"

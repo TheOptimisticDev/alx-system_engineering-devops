@@ -1,19 +1,13 @@
 [Unit]
-Description = HBNB
-After = network.target
+Description=gunicorn daemon
+After=network.target
 
 [Service]
-PermissionsStartOnly = true
-PIDFile = /run/hbnb/hbnb.pid
-User = ubuntu
-Group = ubuntu
-WorkingDirectory = /home/ubuntu/AirBnB_clone_v4
-ExecStartPre = /bin/mkdir /run/hbnb
-ExecStart = /usr/bin/env/bin/gunicorn -w 3 -b 0.0.0.0:5003 --error-logfile /tmp/airbnb-error.log --access-logfile /tmp/airbnb-access.log web_dynamic.2-hbnb:app
-ExecReload = /bin/kill -s HUP $MAINPID
-ExecStop = /bin/kill -s TERM $MAINPID
-ExecStopPost = /bin/rm -rf /run/hbnb
-PrivateTmp = false 
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/AirBnB_clone_v4
+ExecStart=/home/ubuntu/.local/bin/gunicorn --bind 0.0.0.0:5003 --workers=3 --error-logfile /tmp/airbnb-error.log --access-logfile /tmp/airbnb-access.log web_dynamic.2-hbnb:app
+ExecStop=/bin/pkill gunicorn
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target
